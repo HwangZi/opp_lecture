@@ -1,5 +1,5 @@
-/* (°úÁ¦ 3) ½Ç½À3 °á°ú °ª Ãâ·Â ½Ã, A¿Í BÀÇ ÀÌ¸§ÀÌ µ¿½Ã¿¡ ¹Ù²ï °ÍÀ» º¼ ¼ö ÀÖ´Ù. ÀÌÀ¯¸¦ »ý°¢ÇØ º¸ÀÚ.
-±×¸®°í AÀÇ ÀÌ¸§¸¸ BrownÀ¸·Î ¹Ù²îµµ·Ï º¹»ç »ý¼ºÀÚ (Animal(Animal &a){})¸¦ ¼öÁ¤ÇØ º¸ÀÚ. */
+/* (ê³¼ì œ 3) ì‹¤ìŠµ3 ê²°ê³¼ ê°’ ì¶œë ¥ ì‹œ, Aì™€ Bì˜ ì´ë¦„ì´ ë™ì‹œì— ë°”ë€ ê²ƒì„ ë³¼ ìˆ˜ ìžˆë‹¤. ì´ìœ ë¥¼ ìƒê°í•´ ë³´ìž.
+ê·¸ë¦¬ê³  Aì˜ ì´ë¦„ë§Œ Brownìœ¼ë¡œ ë°”ë€Œë„ë¡ ë³µì‚¬ ìƒì„±ìž (Animal(Animal &a){})ë¥¼ ìˆ˜ì •í•´ ë³´ìž. */
 
 
 
@@ -18,7 +18,7 @@ public:
 		strcpy(name, name_);
 	}
 
-	Animal(Animal& a) { //º¹»ç »ý¼ºÀÚ
+	Animal(Animal& a) { //ë³µì‚¬ ìƒì„±ìž
 		/*
 		age = a.age;
 		name = a.name;
@@ -38,11 +38,11 @@ public:
 };
 
 int main() {
-	Animal A(10, "Jenny"); //10»ì Jenny »ý¼º
-	Animal B = A; // 10»ì JennyÀÎ A¸¦ B¿¡°Ô º¹»ç
-	A.age = 22;		//AÀÇ ³ªÀÌ¸¦ 22»ì·Î ¹Ù²Þ
+	Animal A(10, "Jenny"); //10ì‚´ Jenny ìƒì„±
+	Animal B = A; // 10ì‚´ Jennyì¸ Aë¥¼ Bì—ê²Œ ë³µì‚¬
+	A.age = 22;		//Aì˜ ë‚˜ì´ë¥¼ 22ì‚´ë¡œ ë°”ê¿ˆ
 	//char* brown = "Brown";
-	A.changeName("Brown"); //AÀÇ ÀÌ¸§À» BrownÀ¸·Î ¹Ù²Þ
+	A.changeName("Brown"); //Aì˜ ì´ë¦„ì„ Brownìœ¼ë¡œ ë°”ê¿ˆ
 
 	A.printAnimal();
 	B.printAnimal();
