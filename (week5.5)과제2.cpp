@@ -1,3 +1,7 @@
+/* (과제 2)  아래 프로그램은 main 함수에서 고양이 cat1 오브젝트를 생성한 후에 eat()를 호출할 경우, eat()의 인자로 전달된 값만큼 cat1.weight 값이 증가하는 프로그램이다.
+	eat 함수를 추가하여 프로그램을 완성하세요. (힌트, this키워드와 레퍼런스 사용)*/
+
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 
