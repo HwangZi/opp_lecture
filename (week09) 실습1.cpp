@@ -1,45 +1,25 @@
-/* (실습 0) 아래 코드를 실행, 분석해 보세요(operator overloading과 conversion에 대해 복습). */
+/* (실습 1) 아래 코드의 컴파일 에러 원인을 생각해 보세요.Derived Class를 수정하여 컴파일 되도록 해보세요. */
 
 
-#include <iostream>
-
-class MyData {
-	int number;
-	std::string strNumber;
+class Base {
 public:
-	MyData(int data, std::string str) : number(data), strNumber(str) {}
-	//Operator conversion
-	operator int() { return number; }
-	operator std::string() { return strNumber; }
-
-	//Unary operator
-	int operator++(int) { //postfix operation (indicated by dummy 'int')
-		int temp = number;
-		number++;
-		return temp;
-	}
-	int operator++() { //prefix operation
-		return ++number;
-	}
-
-	friend std::ostream& operator<<(std::ostream&, MyData&);
+	void func_1() {};
+protected:
+	void func_2() {};
+private:
+	int x_;
 };
 
-// non-member operator<< function
-std::ostream& operator<<(std::ostream& os, MyData& md) {
-	return os << "This number is: " << md.strNumber << "\n";
-}
+class Derived : public  Base {
+public:
+	void func_3() {
+		func_1();
+		func_2();
+	}
+};
 
 int main() {
-	MyData mydata(1, "one");
-
-	std::string strNum = mydata;
-	int intNum = mydata;
-
-	std::cout << strNum << std::endl; // one
-	std::cout << intNum << std::endl; // 1
-	std::cout << mydata++ << std::endl; // 1
-	std::cout << ++mydata << std::endl; // 3
-	std::cout << mydata;
-
+	Derived d;
+	d.func_3();
+	d.func_1();
 }
