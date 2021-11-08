@@ -52,11 +52,8 @@ public:
 
 class BridgePatternDemo {
 
-    RedCircle red;
-    GreenCircle green;
-
-    Shape* redCircle = new Circle(100, 100, 10, &red);
-    Shape* greenCircle = new Circle(100, 100, 10, &green);
+    Shape* redCircle = new Circle(100, 100, 10, new RedCircle());
+    Shape* greenCircle = new Circle(100, 100, 10, new GreenCircle());
 
     int main() {
         redCircle->draw();
