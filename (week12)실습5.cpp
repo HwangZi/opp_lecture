@@ -11,7 +11,7 @@ public:
 		return rollNo;
 	}
 
-	void setRollNo(std::string& rollNo) {
+	void setRollNo(string& rollNo) {
 		this->rollNo = rollNo;
 	}
 
@@ -19,7 +19,7 @@ public:
 		return name;
 	}
 
-	void setName(std::string& name) {
+	void setName(string& name) {
 		this->name = name;
 	}
 };
@@ -27,7 +27,7 @@ public:
 
 class StudentView {
 public:
-	void printStudentDetails(std::string& studentName, std::string& studentRollNo) {
+	void printStudentDetails(string& studentName, string& studentRollNo) {
 		std::cout << "Student: " << std::endl;
 		std::cout << "Name: " << studentName << std::endl;
 		std::cout << "Roll No: " << studentRollNo << std::endl;
@@ -53,7 +53,7 @@ public:
 		return model->getName();
 	}
 
-	void setStudentRollNo(std::string& rollNo) {
+	void setStudentRollNo(string& rollNo) {
 		model->setRollNo(rollNo);
 	}
 
@@ -68,11 +68,11 @@ public:
 
 
 static Student retriveStudentFromDatabase(){
-	Student* student = new Student();
-		student->setName("Robert");
-		student->setRollNo("10");
+	Student student = new Student();
+	student->setName("Robert");
+	student->setRollNo("10");
 
-		return student;
+	return student;
 }
 
 int main()
