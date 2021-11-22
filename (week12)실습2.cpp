@@ -8,7 +8,12 @@ void swap(T& a, T& b) {
 	a = b;
 	b = temp;
 }
-
+template<>
+void swap(std::string& a, std::string& b){
+	std::string temp = a;
+	a = b;
+	b = temp;
+}
 
 int main() {
 	int a = 1;
@@ -22,7 +27,7 @@ int main() {
 	swap<float>(c, d); //swap(c,d)도 가능
 
    //(추가) e, f의 swap이 가능하도록 swap template 호출
-	swap(e, f);
+	swap<>(e, f);
 
 
 	std::cout << "a: " << a << ", b: " << b << std::endl;
