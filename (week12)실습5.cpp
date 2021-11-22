@@ -3,23 +3,23 @@
 
 class Student {
 private:
-	std::string rollNo;
-	std::string name;
+	string rollNo;
+	string name;
 
 public:
-	virtual std::string getRollNo() {
+	string getRollNo() {
 		return rollNo;
 	}
 
-	virtual void setRollNo(std::string& rollNo) {
+	void setRollNo(std::string& rollNo) {
 		this->rollNo = rollNo;
 	}
 
-	virtual std::string getName() {
+	string getName() {
 		return name;
 	}
 
-	virtual void setName(std::string& name) {
+	void setName(std::string& name) {
 		this->name = name;
 	}
 };
@@ -27,7 +27,7 @@ public:
 
 class StudentView {
 public:
-	virtual void printStudentDetails(std::string& studentName, std::string& studentRollNo) {
+	void printStudentDetails(std::string& studentName, std::string& studentRollNo) {
 		std::cout << "Student: " << std::endl;
 		std::cout << "Name: " << studentName << std::endl;
 		std::cout << "Roll No: " << studentRollNo << std::endl;
@@ -36,61 +36,53 @@ public:
 
 class StudentController {
 private:
-	Student* model;
-	StudentView* view;
+	Student model;
+	StudentView view;
 
 public:
-	virtual ~StudentController() {
-		delete model;
-		delete view;
-	}
-
-	StudentController(Student* model, StudentView* view) {
+	StudentController(Student model, StudentView view) {
 		this->model = model;
 		this->view = view;
 	}
 
-	virtual void setStudentName(std::string& name) {
+	void setStudentName(string& name) {
 		model->setName(name);
 	}
 
-	virtual std::string getStudentName() {
+	string getStudentName() {
 		return model->getName();
 	}
 
-	virtual void setStudentRollNo(std::string& rollNo) {
+	void setStudentRollNo(std::string& rollNo) {
 		model->setRollNo(rollNo);
 	}
 
-	virtual std::string getStudentRollNo() {
+	string getStudentRollNo() {
 		return model->getRollNo();
 	}
 
-	virtual void updateView() {
+	void updateView() {
 		view->printStudentDetails(model->getName(), model->getRollNo());
 	}
 };
 
 
-
-
-int main()
-{
-	Student* model = retriveStudentFromDatabase();
-	static Student* retriveStudentFromDatabase() {
-		Student* student = new Student();
+static Student retriveStudentFromDatabase(){
+	Student* student = new Student();
 		student->setName("Robert");
 		student->setRollNo("10");
 
 		return student;
-	}
+}
 
-	StudentView* view = new StudentView();
+int main()
+{
+	Student model = retriveStudentFromDatabase();
 
-	StudentController* controller = new StudentController(model, view){
-	   this->model = model;
-	   this->view = view;
-	}
+	StudentView view = new StudentView();
+
+	StudentController controller(model, view);
+	
 	controller->updateView();
 
 	controller->setStudentName("John");
