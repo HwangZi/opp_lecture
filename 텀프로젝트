@@ -1,0 +1,189 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include <stack>
+#include <unordered_map>
+#include <any>
+
+using namespace std;
+
+class Calc
+{
+private:
+	std::vector<std::any> splitTokens(std::string& expr);
+	std::vector<std::any> infixToPostfix(std::vector<std::any>& tokens);
+	int postFixEval(std::vector<std::any>& expr);
+public:
+	virtual int process(std::string& expr);
+};
+
+class arithmetic {
+public :
+	virtual void eachArithmetic(std::stack<int>) = 0;
+	virtual ~arithmetic() {};
+};
+
+std::vector<std::any> Calc::splitTokens(std::string& expr)
+{
+	std::vector<std::string> exp = expr.split('');
+	std::vector<std::any> tokens;
+	int value = 0;
+	bool flag = false;
+	for (auto c : exp)
+	{
+		if ((std::string("0123456789")).find(c) != std::wstring::npos)
+		{
+			value = value * 10 + std::stoi(c);
+			flag = true;
+		}
+		else
+		{
+			if (flag)
+			{
+				tokens.push_back(value);
+				value = 0;
+			}
+			flag = false;
+			tokens.push_back(c);
+		}
+	}
+	if (flag)
+	{
+		tokens.push_back(value);
+	}
+	return tokens;
+}
+
+std::vector<std::any> Calc::infixToPostfix(std::vector<std::any>& tokens)
+{
+	std::vector<std::any> result;
+	std::stack<std::any> opStack;
+	std::unordered_map<std::string, int> prec;
+	prec.emplace("*", 3);
+	prec.emplace("/", 3);
+	prec.emplace("+", 2);
+	prec.emplace("-", 2);
+	prec.emplace("(", 1);
+	for (auto c : tokens)
+	{
+		if (c.equals("("))
+		{
+			opStack.push(c);
+		}
+		else if (c.equals(")"))
+		{
+			while (!opStack.top().equals("("))
+			{
+				std::any val = opStack.pop();
+				if (!val.equals(L"("))
+				{
+					result.push_back(val);
+				}
+			}
+			opStack.pop();
+		}
+		else if (prec.find(c) != prec.end())
+		{
+			if (opStack.empty())
+			{
+				opStack.push(c);
+			}
+			else
+			{
+				if (prec[opStack.top()] >= prec[c])
+				{
+					result.push_back(opStack.pop());
+					opStack.push(c);
+				}
+				else
+				{
+					opStack.push(c);
+				}
+			}
+		}
+		else
+		{
+			result.push_back(c);
+		}
+	}
+	while (!opStack.empty())
+	{
+		result.push_back(opStack.pop());
+	}
+	return result;
+}
+
+int Calc::postFixEval(std::vector<std::any>& expr) : public arithmetic
+{
+	std::stack<int> valueStack;
+	int a = 5;
+	for (auto c : expr)
+	{
+		if (c.type() == typeid(a))
+		{
+			valueStack.push(static_cast<int>(c));
+		}
+		else if (c.equals("+"))
+		{	
+			void eachArithmetic(std::stack<int> valueStack) {
+				valueStack.pop();
+				int num1 = static_cast<int>(valueStack.top());
+				valueStack.pop();
+				int num2 = static_cast<int>(valueStack.top());
+				valueStack.push(num2 + num1);
+			}
+		}
+		else if (c.equals("-"))
+		{
+			void eachArithmetic(std::stack<int> valueStack) {
+				valueStack.pop();
+				int num1 = static_cast<int>(valueStack.top());
+				valueStack.pop();
+				int num2 = static_cast<int>(valueStack.top());
+				valueStack.push(num2 - num1);
+			}
+		}
+		else if (c.equals("*"))
+		{
+			void eachArithmetic(std::stack<int> valueStack) {
+				valueStack.pop();
+				int num1 = static_cast<int>(valueStack.top());
+				valueStack.pop();
+				int num2 = static_cast<int>(valueStack.top());
+				valueStack.push(num2 * num1);
+			}
+		}
+		else if (c.equals("/"))
+		{
+			void eachArithmetic(std::stack<int> valueStack) {
+				valueStack.pop();
+				int num1 = static_cast<int>(valueStack.top());
+				valueStack.pop();
+				int num2 = static_cast<int>(valueStack.top());
+				valueStack.push(num2 / num1);
+			}
+		}
+
+	
+	}
+	int result = static_cast<int>(valueStack.top());
+	return result;
+}
+
+int Calc::process(std::string& expr)
+{
+	std::vector<std::any> tmp = splitTokens(expr);
+	vector<std::any> postfix = infixToPostfix(tmp);
+	int result = postFixEval(postfix);
+	return result;
+};
+
+
+
+int main() {
+	std::string expr;
+	cin >> expr;
+	Calc* calc = new Calc();
+	int result = calc->process(expr);
+	cout << result << endl;
+}
